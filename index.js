@@ -9,8 +9,10 @@ async function checkRabbitMQ() {
         const channel = await connectToRabbitMQ();
         const queue = "messages";
         const message = "Hello There!";
-        await publishMessage(channel, queue, message);
-        await subscribeMessage(channel, queue);
+        for (let index = 0; index < 5; index++) {
+            await publishMessage(channel, queue, index.toString());
+            await subscribeMessage(channel, queue);
+        }
     } catch (error) {
         console.log(error);
         throw error;
